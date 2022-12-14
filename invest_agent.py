@@ -1,0 +1,13 @@
+model.evaluate(test_ds)
+y_pred = model.predict(x_test)
+df_time = df.index[-len(y_test):]
+fig = plt.figure(figsize=(10, 5))
+axes = fig.add_subplot(111)
+axes.plot(df_time, y_test, 'b-', label='stacked GRU')
+history = model.fit(train_ds, epochs=30, validation_data=val_ds)
+axes.plot(df_time, y_new, 'y-', label='hold and sell')
+axes.plot(df_time, y_pred, 'r--', label='stacked LSTM')
+axes.set_xticks(df_time[::50])
+plt.legend()
+plt.grid()
+plt.show()
